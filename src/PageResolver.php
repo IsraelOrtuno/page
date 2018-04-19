@@ -1,9 +1,9 @@
 <?php
 
-namespace Devio\Pages;
+namespace Devio\Page;
 
-use Devio\Pages\Contracts\PageResolver as PageResolverInterface;
-use Devio\Pages\Contracts\stringtring;
+use Devio\Page\Contracts\PageResolver as PageResolverInterface;
+use Devio\Page\Contracts\stringtring;
 
 class PageResolver implements PageResolverInterface
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Devio\Pages\Traits;
+namespace Devio\Page\Traits;
 
-use Devio\Pages\Seo;
-use Devio\Pages\Meta;
-use Devio\Pages\PageManager;
+use Devio\Page\Seo;
+use Devio\Page\Meta;
+use Devio\Page\PageManager;
 
 trait Seoable
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Devio\Pages\Tests\Unit;
+namespace Devio\Page\Tests\Unit;
 
 use Skuad\Seo\Tests\UnitTest;
 use Skuad\Seo\Generators\Concerns\CompilesContent;

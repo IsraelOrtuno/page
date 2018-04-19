@@ -1,6 +1,6 @@
 <?php
 
-namespace Devio\Pages\Transformers;
+namespace Devio\Page\Transformers;
 
 class MetaTransformer extends Transformer
 {

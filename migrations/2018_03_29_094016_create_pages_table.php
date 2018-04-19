@@ -63,7 +63,7 @@ class CreatePagesTable extends Migration
         ];
 
         foreach ($routes as $route) {
-            \Devio\Pages\Page::forceCreate($route);
+            \Devio\Page\Page::forceCreate($route);
         }
     }
 

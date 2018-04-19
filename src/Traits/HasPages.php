@@ -1,9 +1,9 @@
 <?php
 
-namespace Devio\Pages\Traits;
+namespace Devio\Page\Traits;
 
-use Devio\Pages\Page;
-use Devio\Pages\PageManager;
+use Devio\Page\Page;
+use Devio\Page\PageManager;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 trait HasPages

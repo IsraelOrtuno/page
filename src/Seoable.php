@@ -1,6 +1,6 @@
 <?php
 
-namespace Devio\Pages;
+namespace Devio\Page;
 
 interface Seoable
 {

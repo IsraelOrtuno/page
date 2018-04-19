@@ -1,9 +1,9 @@
 <?php
 
-namespace Devio\Pages\Generators;
+namespace Devio\Page\Generators;
 
 use Arcanedev\SeoHelper\Contracts\SeoHelper;
-use Devio\Pages\Generators\Concerns\CompilesContent;
+use Devio\Page\Generators\Concerns\CompilesContent;
 
 abstract class AbstractGenerator
 {

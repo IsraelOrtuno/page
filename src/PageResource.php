@@ -1,10 +1,10 @@
 <?php
 
-namespace Devio\Pages;
+namespace Devio\Page;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SeoResource extends JsonResource
+class PageResource extends JsonResource
 {
     public function toArray($request)
     {

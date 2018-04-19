@@ -1,8 +1,8 @@
 <?php
 
-namespace Devio\Pages\Composers;
+namespace Devio\Page\Composers;
 
-use Devio\Pages\Seoable;
+use Devio\Page\Seoable;
 use Illuminate\Contracts\View\View;
 
 class FormComposer

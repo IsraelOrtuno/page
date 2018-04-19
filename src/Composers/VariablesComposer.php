@@ -1,10 +1,10 @@
 <?php
 
-namespace Devio\Pages\Composers;
+namespace Devio\Page\Composers;
 
-use Devio\Pages\Seo;
+use Devio\Page\Seo;
 use Illuminate\Contracts\View\View;
-use Devio\Pages\Traits\ChecksForSeoable;
+use Devio\Page\Traits\ChecksForSeoable;
 
 class VariablesComposer
 {

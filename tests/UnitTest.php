@@ -1,6 +1,6 @@
 <?php
 
-namespace Devio\Pages\Tests;
+namespace Devio\Page\Tests;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;

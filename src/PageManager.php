@@ -1,6 +1,6 @@
 <?php
 
-namespace Devio\Pages;
+namespace Devio\Page;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;

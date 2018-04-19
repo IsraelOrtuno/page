@@ -1,16 +1,16 @@
 <?php
 
-namespace Devio\Pages;
+namespace Devio\Page;
 
-use Devio\Pages\Composers\TagComposer;
-use Devio\Pages\Composers\FormComposer;
-use Devio\Pages\Contracts\PageResolver;
+use Devio\Page\Composers\TagComposer;
+use Devio\Page\Composers\FormComposer;
+use Devio\Page\Contracts\PageResolver;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
-use Devio\Pages\Composers\VariablesComposer;
-use Devio\Pages\Transformers\MetaTransformer;
+use Devio\Page\Composers\VariablesComposer;
+use Devio\Page\Transformers\MetaTransformer;
 
-class SeoServiceProvider extends ServiceProvider
+class PageServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
@@ -80,7 +80,7 @@ class SeoServiceProvider extends ServiceProvider
     protected function registerSingletonServices(): void
     {
         $services = [
-            PageResolver::class => \Devio\Pages\PageResolver::class
+            PageResolver::class => \Devio\Page\PageResolver::class
         ];
 
         foreach ($services as $key => $value) {
