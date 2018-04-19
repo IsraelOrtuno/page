@@ -1,0 +1,39 @@
+{
+    "name": "devio/seo",
+    "authors": [
+        {
+            "name": "Israel Ortuno",
+            "email": "ai.ortuno@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "illuminate/support": "5.6.*",
+        "illuminate/database": "5.6.*",
+        "laravelcollective/html": "^5.6",
+        "arcanedev/seo-helper": "^1.5",
+        "cviebrock/eloquent-sluggable": "^4.5"
+    },
+    "require-dev": {
+        "mockery/mockery": "~1.0",
+        "phpunit/phpunit": "~7.0",
+        "orchestra/testbench": "~3.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Devio\\Seo\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Skuad\\Seo\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Devio\\Seo\\SeoServiceProvider"
+            ]
+        }
+    }
+}

@@ -1,0 +1,6 @@
+/vendor
+composer.lock
+/.idea
+composer.phar
+.DS_Store
+Thumbs.db

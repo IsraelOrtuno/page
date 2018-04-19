@@ -1,0 +1,23 @@
+.seo-preview {
+    font-family : Arial, sans-serif;
+
+    // TODO: Create a variable for storing the colors
+    span {
+        display       : inline-block;
+        padding       : 0 2px;
+        background    : lighten(theme-color(warning), 45%);
+        border-radius : 5px;
+    }
+
+    &__title {
+        color : #1a0dab;
+    }
+
+    &__link {
+        color : #006621
+    }
+
+    &__description {
+        color : #545454
+    }
+}
