@@ -1,6 +1,6 @@
 <?php
 
-namespace Devio\Seo\Tests\Unit;
+namespace Devio\Pages\Tests\Unit;
 
 use Mockery as m;
 use Skuad\Seo\Seo;

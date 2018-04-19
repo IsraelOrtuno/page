@@ -1,6 +1,6 @@
 <?php
 
-namespace Devio\Seo\Generators\Concerns;
+namespace Devio\Pages\Generators\Concerns;
 
 trait CompilesContent
 {

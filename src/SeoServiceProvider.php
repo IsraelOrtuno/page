@@ -1,14 +1,14 @@
 <?php
 
-namespace Devio\Seo;
+namespace Devio\Pages;
 
-use Devio\Seo\Composers\TagComposer;
-use Devio\Seo\Composers\FormComposer;
-use Devio\Seo\Contracts\PageResolver;
+use Devio\Pages\Composers\TagComposer;
+use Devio\Pages\Composers\FormComposer;
+use Devio\Pages\Contracts\PageResolver;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
-use Devio\Seo\Composers\VariablesComposer;
-use Devio\Seo\Transformers\MetaTransformer;
+use Devio\Pages\Composers\VariablesComposer;
+use Devio\Pages\Transformers\MetaTransformer;
 
 class SeoServiceProvider extends ServiceProvider
 {
@@ -80,7 +80,7 @@ class SeoServiceProvider extends ServiceProvider
     protected function registerSingletonServices(): void
     {
         $services = [
-            PageResolver::class => \Devio\Seo\PageResolver::class
+            PageResolver::class => \Devio\Pages\PageResolver::class
         ];
 
         foreach ($services as $key => $value) {

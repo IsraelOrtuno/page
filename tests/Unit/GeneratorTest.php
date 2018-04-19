@@ -1,6 +1,6 @@
 <?php
 
-namespace Devio\Seo\Tests\Unit;
+namespace Devio\Pages\Tests\Unit;
 
 use Arcanedev\SeoHelper\Contracts\SeoHelper;
 use Mockery as m;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Devio\Seo\Traits;
+namespace Devio\Pages\Traits;
 
-use Devio\Seo\Traits\Seoable;
+use Devio\Pages\Traits\Seoable;
 
 trait ChecksForSeoable
 {

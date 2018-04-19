@@ -1,8 +1,8 @@
 <?php
 
-namespace Devio\Seo;
+namespace Devio\Pages;
 
-use Devio\Seo\Generators\MetaGenerator;
+use Devio\Pages\Generators\MetaGenerator;
 
 class Middleware
 {

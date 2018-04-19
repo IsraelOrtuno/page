@@ -1,8 +1,8 @@
 <?php
 
-namespace Devio\Seo\Contracts;
+namespace Devio\Pages\Contracts;
 
 interface PageResolver
 {
-    public function resolve(\Devio\Seo\Page $page): string;
+    public function resolve(\Devio\Pages\Page $page): string;
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Devio\Seo\Generators;
+namespace Devio\Pages\Generators;
 
 class MetaGenerator extends AbstractGenerator
 {
