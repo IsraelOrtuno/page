@@ -7,6 +7,20 @@ use Devio\Page\Generators\MetaGenerator;
 class Middleware
 {
     /**
+     * @var PageManager
+     */
+    protected $manager;
+
+    /**
+     * Middleware constructor.
+     */
+    public function __construct(PageManager $manager)
+    {
+        $this->manager = $manager;
+    }
+
+
+    /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request $request
@@ -21,15 +35,19 @@ class Middleware
         // the existing generators for the current page.
         // TODO: This query is executed every request, consider caching
         if ($current = $page->first()) {
-            $this->runGenerators($current);
+            $this->manager->generateAll($current);
         }
+
+        $this->dispatch($request);
 
         return $next($request);
     }
 
-    protected function runGenerators($page)
+    protected function dispatch($request, $route = null)
     {
-        app(MetaGenerator::class)->handle($page->meta);
+        $route = $route ?: $request->route()->getName();
+
+        event("page:route:{$route}", $request->route()->parameters());
     }
 
     protected function getRoutePath()

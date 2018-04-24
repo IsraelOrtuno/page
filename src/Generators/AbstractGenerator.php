@@ -31,7 +31,9 @@ abstract class AbstractGenerator
         }
 
         foreach ($data as $key => $content) {
-            if (method_exists($this, $method = 'set' . studly_case($key))) {
+            if (is_callable($content)) {
+                $content();
+            } elseif (method_exists($this, $method = 'set' . studly_case($key))) {
                 call_user_func_array([$this, $method], compact('content'));
             }
         }

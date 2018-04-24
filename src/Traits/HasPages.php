@@ -3,7 +3,7 @@
 namespace Devio\Page\Traits;
 
 use Devio\Page\Page;
-use Devio\Page\PageManager;
+use Devio\Page\Store;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 trait HasPages
@@ -54,7 +54,7 @@ trait HasPages
      */
     public function createPage($attributes = null): self
     {
-        return app(PageManager::class)->model($this)->handle($attributes);
+        return app(Store::class)->model($this)->handle($attributes);
     }
 
     /**

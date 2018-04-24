@@ -13,7 +13,7 @@ class CreatePagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pages', function (Blueprint $table) {
+        Schema::create('HomePage', function (Blueprint $table) {
             $table->increments('id');
 
             $table->string('route')->nullable();
@@ -74,6 +74,6 @@ class CreatePagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pages');
+        Schema::dropIfExists('HomePage');
     }
 }

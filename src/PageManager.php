@@ -2,8 +2,6 @@
 
 namespace Devio\Page;
 
-use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Container\Container;
 
 class PageManager
@@ -13,74 +11,25 @@ class PageManager
      */
     protected $container;
 
-    /**
-     * The model instance.
-     *
-     * @var Model
-     */
-    protected $model;
-
-    /**
-     * Manager constructor.
-     *
-     * @param Model|null $model
-     */
-    public function __construct(Model $model = null)
+    public function generate($generator, $data = [])
     {
-        $this->model = $model;
+        $this->getContainer()->make($generator)->handle($data);
     }
 
-    /**
-     * Set the model.
-     *
-     * @param Model $model
-     * @return $this
-     */
-    public function model(Model $model)
+    public function generateAll($data = [])
     {
-        $this->model = $model;
-
-        return $this;
-    }
-
-    /**
-     * Create or update the seo model for the current model.
-     *
-     * @param null $attributes
-     */
-    public function handle($attributes = null)
-    {
-        $attributes = $this->gatherAttributes($attributes)->map(function ($values, $entity) {
-            return $this->getContainer()
-                        ->make("seo.transformers.{$entity}")->transform($values);
-        })->toArray();
-
-        // We will first use the transformers to manipulate any entity data if
-        // there is a transformer for it. Once done our attributes are ready
-        // to be persisted... We will create or update them accordingly.
-        $this->model->hasPage() ? $this->model->page->update($attributes)
-            : $this->model->page()->create($attributes);
-    }
-
-    /**
-     * Get the attributes from the request or 'seo' key.
-     *
-     * @param null $attributes
-     * @return \Illuminate\Support\Collection
-     */
-    protected function gatherAttributes($attributes = null)
-    {
-        if (is_null($attributes)) {
-            $attributes = request()->get('seo');
+        if (is_callable($data)) {
+            $data = $data();
+        }
+        if ($data instanceof Page) {
+            $data = $data->toArray();
         }
 
-        if ($attributes instanceof Request) {
-            $attributes = $attributes->get('seo');
-        } elseif (! is_array($attributes)) {
-            $attributes = (array) $attributes;
-        }
+        $data = array_only($data, ['meta']); // , 'opengraph', 'twitter']);
 
-        return collect($attributes['seo'] ?? $attributes);
+        foreach ($data as $generator => $attributes) {
+            $this->generate("page.generator.{$generator}", $attributes);
+        }
     }
 
     /**

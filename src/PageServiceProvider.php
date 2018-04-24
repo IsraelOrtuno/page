@@ -4,7 +4,8 @@ namespace Devio\Page;
 
 use Devio\Page\Composers\TagComposer;
 use Devio\Page\Composers\FormComposer;
-use Devio\Page\Contracts\PageResolver;
+use Devio\Page\Contracts\ActionResolver;
+use Devio\Page\Generators\MetaGenerator;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Devio\Page\Composers\VariablesComposer;
@@ -33,12 +34,12 @@ class PageServiceProvider extends ServiceProvider
 
         Page::all()->each(function ($page) use ($router) {
             $action = $page->browseable ? $page->browseable->getAction()
-                : $this->app->make(PageResolver::class)->resolve($page);
+                : $this->app->make(ActionResolver::class)->resolve($page);
 
             $route = $router->get($page->slug, $action)->name($page->route)->middleware('web');
 
             if ($page->browseable) {
-             //   $route->defaults($page->browseable->getParameterName(), $page->slug);
+                //   $route->defaults($page->browseable->getParameterName(), $page->slug);
                 $route->defaults($page->browseable->getParameterName(), $page->browseable);
             }
         });
@@ -58,14 +59,17 @@ class PageServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(realpath(__DIR__ . '/../') . '/resources/views', 'seo');
 
-        $this->mergeConfigFrom(__DIR__ . '/../config/seo.php', 'seo');
+        $this->mergeConfigFrom(__DIR__ . '/../config/page.php', 'page');
 
         $this->loadMigrationsFrom(__DIR__ . '/../migrations/');
     }
 
     public function register()
     {
-        // Always set the container for the Manager class
+        // Always set the container for the Manager and Store classes
+        $this->app->resolving(Store::class, function ($store, $app) {
+            $store->setContainer($app);
+        });
         $this->app->resolving(PageManager::class, function ($manager, $app) {
             $manager->setContainer($app);
         });
@@ -73,14 +77,19 @@ class PageServiceProvider extends ServiceProvider
         $this->registerSingletonServices();
 
         $this->app->bind('seo.transformers.meta', MetaTransformer::class);
-        $this->app->bind('seo.transformers.opengraph', MetaTransformer::class);
-        $this->app->bind('seo.transformers.twitter', MetaTransformer::class);
+//        $this->app->bind('seo.transformers.opengraph', MetaTransformer::class);
+//        $this->app->bind('seo.transformers.twitter', MetaTransformer::class);
+
+        // Generators
+        $this->app->bind('page.generator.meta', MetaGenerator::class);
+//        $this->app->bind('page.generator.opengraph', MetaTransformer::class);
+//        $this->app->bind('page.generator.twitter', MetaTransformer::class);
     }
 
     protected function registerSingletonServices(): void
     {
         $services = [
-            PageResolver::class => \Devio\Page\PageResolver::class
+            ActionResolver::class => \Devio\Page\ActionResolver::class
         ];
 
         foreach ($services as $key => $value) {

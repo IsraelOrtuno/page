@@ -2,7 +2,7 @@
 
 namespace Devio\Page\Contracts;
 
-interface PageResolver
+interface ActionResolver
 {
     public function resolve(\Devio\Page\Page $page): string;
 }

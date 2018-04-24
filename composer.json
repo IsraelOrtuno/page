@@ -1,5 +1,5 @@
 {
-    "name": "devio/pages",
+    "name": "devio/page",
     "authors": [
         {
             "name": "Israel Ortuno",
@@ -21,18 +21,18 @@
     },
     "autoload": {
         "psr-4": {
-            "Devio\\Pages\\": "src/"
+            "Devio\\Page\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Devio\\Pages\\Tests\\": "tests/"
+            "Devio\\Page\\Tests\\": "tests/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Devio\\Pages\\SeoServiceProvider"
+                "Devio\\Page\\PageServiceProvider"
             ]
         }
     }

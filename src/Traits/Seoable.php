@@ -4,7 +4,7 @@ namespace Devio\Page\Traits;
 
 use Devio\Page\Seo;
 use Devio\Page\Meta;
-use Devio\Page\PageManager;
+use Devio\Page\Store;
 
 trait Seoable
 {
@@ -52,7 +52,7 @@ trait Seoable
 
     public function createSeo($attributes = null)
     {
-        return app(PageManager::class)->model($this)->handle($attributes);
+        return app(Store::class)->model($this)->handle($attributes);
     }
 
     public function updateSeo($attributes = null)

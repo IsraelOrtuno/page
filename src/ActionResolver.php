@@ -2,10 +2,9 @@
 
 namespace Devio\Page;
 
-use Devio\Page\Contracts\PageResolver as PageResolverInterface;
-use Devio\Page\Contracts\stringtring;
+use Devio\Page\Contracts\ActionResolver as ActionResolverInterface;
 
-class PageResolver implements PageResolverInterface
+class ActionResolver implements ActionResolverInterface
 {
     /**
      * Resolve a page action path.
@@ -17,6 +16,6 @@ class PageResolver implements PageResolverInterface
     {
         $controller = str_replace('.', '\\', ucfirst($page->route)) . 'Controller';
 
-        return config('seo.namespace') . "\\$controller@index";
+        return config('page.namespace') . "\\$controller@index";
     }
 }
