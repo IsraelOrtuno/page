@@ -51,14 +51,14 @@ class Store
     public function handle($attributes = null)
     {
         $attributes = $this->gatherAttributes($attributes)->map(function ($values, $entity) {
-            return $this->getContainer()
-                        ->make("seo.transformers.{$entity}")->transform($values);
+            return $this->getContainer()->has($alias = "seo.transformers.{$entity}") ?
+                $this->getContainer()->make($alias)->transform($values) : $values;
         })->toArray();
 
         // We will first use the transformers to manipulate any entity data if
         // there is a transformer for it. Once done our attributes are ready
         // to be persisted... We will create or update them accordingly.
-        $this->model->hasPage() ? $this->model->page->update($attributes)
+        return $this->model->hasPage() ? $this->model->page->update($attributes)
             : $this->model->page()->create($attributes);
     }
 

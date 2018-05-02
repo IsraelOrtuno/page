@@ -13,7 +13,7 @@ class CreatePagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('HomePage', function (Blueprint $table) {
+        Schema::create('pages', function (Blueprint $table) {
             $table->increments('id');
 
             $table->string('route')->nullable();
@@ -26,7 +26,6 @@ class CreatePagesTable extends Migration
             $table->json('meta')->nullable();
             $table->json('opengraph')->nullable();
             $table->json('twitter')->nullable();
-            $table->json('json_ld')->nullable();
 
             $table->unsignedInteger('parent_id')->nullable();
 
@@ -74,6 +73,6 @@ class CreatePagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('HomePage');
+        Schema::dropIfExists('pages');
     }
 }

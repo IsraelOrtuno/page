@@ -26,7 +26,7 @@ class PageServiceProvider extends ServiceProvider
 
     protected function defineRoutes()
     {
-        if ($this->app->routesAreCached()) {
+        if ($this->app->routesAreCached() || ! \Schema::hasTable('pages')) {
             return;
         }
 
@@ -39,13 +39,13 @@ class PageServiceProvider extends ServiceProvider
             $route = $router->get($page->slug, $action)->name($page->route)->middleware('web');
 
             if ($page->browseable) {
-                //   $route->defaults($page->browseable->getParameterName(), $page->slug);
                 $route->defaults($page->browseable->getParameterName(), $page->browseable);
             }
         });
     }
 
-    public function defineComposers(): void
+    public
+    function defineComposers(): void
     {
 //        \View::composer('*', TagComposer::class);
 //        \View::composer('seo::form', FormComposer::class);
@@ -55,16 +55,20 @@ class PageServiceProvider extends ServiceProvider
     /**
      * Define the resources for the package.
      */
-    protected function defineResources(): void
+    protected
+    function defineResources(): void
     {
-        $this->loadViewsFrom(realpath(__DIR__ . '/../') . '/resources/views', 'seo');
+        $path = realpath(__DIR__ . '/../');
 
-        $this->mergeConfigFrom(__DIR__ . '/../config/page.php', 'page');
+        $this->loadViewsFrom("{$path}/resources/views", 'page');
 
-        $this->loadMigrationsFrom(__DIR__ . '/../migrations/');
+        $this->mergeConfigFrom("{$path}/config/page.php", 'page');
+
+        $this->loadMigrationsFrom("{$path}/migrations/");
     }
 
-    public function register()
+    public
+    function register()
     {
         // Always set the container for the Manager and Store classes
         $this->app->resolving(Store::class, function ($store, $app) {
@@ -86,7 +90,8 @@ class PageServiceProvider extends ServiceProvider
 //        $this->app->bind('page.generator.twitter', MetaTransformer::class);
     }
 
-    protected function registerSingletonServices(): void
+    protected
+    function registerSingletonServices(): void
     {
         $services = [
             ActionResolver::class => \Devio\Page\ActionResolver::class

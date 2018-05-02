@@ -7,17 +7,13 @@ use Devio\Page\Store;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 trait HasPages
-{ 
-    public static function bootHasPages()
-    {
-        // Binding the route to the page resolutionZZ
-        /*\Route::bind((new static)->getParameterName(), function ($value) {
-            if ($page = Page::where('slug', $value)->first()) {
-                return $page->browseable;
-            }
-            abort(404);
-        });*/
-    }
+{
+    /**
+     * Get the slug from parent.
+     *
+     * @return string
+     */
+//    public abstract function getSlug(): string;
 
     /**
      * Get the controller action.
@@ -52,7 +48,7 @@ trait HasPages
      * @param null $attributes
      * @return mixed
      */
-    public function createPage($attributes = null): self
+    public function createPage($attributes = null)
     {
         return app(Store::class)->model($this)->handle($attributes);
     }
@@ -63,9 +59,9 @@ trait HasPages
      * @param null $attributes
      * @return mixed
      */
-    public function updatePage($attributes = null): self
+    public function updatePage($attributes = null)
     {
-        return $this->createSeo($attributes);
+        return $this->createPage($attributes);
     }
 
     /**

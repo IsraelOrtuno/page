@@ -15,7 +15,7 @@ class Page extends Model
      *
      * @var array
      */
-    protected $fillable = ['meta', 'opengraph', 'twitter'];
+    protected $fillable = ['route', 'slug', 'meta', 'opengraph', 'twitter'];
 
     /**
      * Casting properties.
@@ -56,5 +56,10 @@ class Page extends Model
     public function children()
     {
         return $this->hasMany(static::class, 'parent_id');
+    }
+
+    public function sluggable()
+    {
+        dd('test');
     }
 }
