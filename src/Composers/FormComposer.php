@@ -3,6 +3,7 @@
 namespace Devio\Page\Composers;
 
 use Devio\Page\Seoable;
+use Devio\Page\Traits\HasPages;
 use Illuminate\Contracts\View\View;
 
 class FormComposer
@@ -11,12 +12,12 @@ class FormComposer
     {
         $route = request()->route();
 
-        if (! ($controller = $route->getController()) instanceof Seoable) {
-            return;
-        }
+        $entity = $this->getPrimaryEntity($view);
 
-        $view['seo'] = array_merge($route->parameters(), $view['seo'] ?? []);
-
+        $view->with([
+            'page' => $entity->page ?? [],
+            'pageData' => array_merge($route->parameters(), $view['pageData'] ?? [])
+        ]);
 
 //        // We will check if the current controller action is supposed to have
 //        // automatic SEO keys injection. If so we'll add the current route
@@ -27,5 +28,16 @@ class FormComposer
 //                $route->parameters(), $view['seo'] ?? []
 //            );
 //        }
+    }
+
+    public function getPrimaryEntity($view)
+    {
+        foreach ($view->getData() as $variable) {
+            if (is_object($variable) && class_uses_recursive(HasPages::class)) {
+                return $variable;
+            }
+        }
+
+        return null;
     }
 }

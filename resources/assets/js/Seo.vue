@@ -20,22 +20,42 @@
                 </div>
             </div>
             <div class="card-footer bg-dadrk textd-white">
-                <variables></variables>
+                <variables :variables="data"></variables>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import Tabs from './Tabs'
-    import Metas from './Meta/Metas'
-    import store from '../store/index'
-//    import Twitter from './Twitter/Twitter'
-    import Advanced from './Advanced/Advanced'
-//    import Opengraph from './Opengraph/Opengraph'
-    import Variables from './Variables/Variables'
+    import store from './store'
+    import Tabs from './components/Tabs'
+    import Metas from './components/Meta/Metas'
+    // import store from './store/index'
+    //    import Twitter from './Twitter/Twitter'
+    import Advanced from './components/Advanced/Advanced'
+    //    import Opengraph from './Opengraph/Opengraph'
+    import Variables from './components/Variables/Variables'
+    import Compiler from "./compiler";
+
+    window.compiler = new Compiler({})
 
     export default {
+        props: ['data', 'store'],
         components: {Tabs, Metas, Advanced, Variables},
+
+        data() {
+            return {
+                privateState: {},
+                sharedState: store.state
+            }
+        },
+
+        beforeMount() {
+            this.$set(this.sharedState, 'slug', this.store.slug)
+            this.$set(this.sharedState, 'meta', this.store.meta)
+            // this.sharedState.meta = this.store.meta
+            // store.state = this.store
+            compiler.setSources(this.data)
+        }
     }
 </script>

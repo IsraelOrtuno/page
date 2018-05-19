@@ -1,13 +1,12 @@
 <template>
     <div class="seo-advanced">
         <div class="row">
-
             <div class="col-md-4">
                 <label>Meta robots index</label>
 
                 <div class="mb-2 d-flex align-items-center">
                     <input id="robot-noindex" type="checkbox" class="robot-noindex tgl tgl-flat"
-                           value="true" :checked="robots.noindex" @change="updateRobot({key: 'noindex', value: $event.target.checked})">
+                           value="true" :checked="robots.noindex" @change="setRobots({key: 'noindex', value: $event.target.checked})">
                     <label for="robot-noindex" class="tgl-btn mb-0 mr-2"></label>
                     <div>No index</div>
                     <input type="hidden" name="seo[meta][robots][noindex]" :value="robots.noindex">
@@ -19,7 +18,7 @@
 
                 <div class="mb-2 d-flex align-items-center">
                     <input id="robot-nofollow" type="checkbox" class="robot-nofollow tgl tgl-flat"
-                           value="true" :checked="robots.nofollow" @change="updateRobot({key: 'nofollow', value: $event.target.checked})">
+                           value="true" :checked="robots.nofollow" @change="setRobots({key: 'nofollow', value: $event.target.checked})">
                     <label for="robot-nofollow" class="tgl-btn mb-0 mr-2"></label>
                     <div>No follow</div>
                     <input type="hidden" name="seo[meta][robots][nofollow]" :value="robots.nofollow">
@@ -29,24 +28,24 @@
             <div class="col-md-4">
                 <label>Advanced robots</label>
 
-
                 <div class="mb-2 d-flex align-items-center">
                     <input id="robot-noimageindex" type="checkbox" class="robot-noimageindex tgl tgl-flat"
-                           value="true" :checked="robots.noimageindex" @change="updateRobot({key: 'noimageindex', value: $event.target.checked})">
+                           value="true" :checked="robots.noimageindex"
+                           @change="setRobots({key: 'noimageindex', value: $event.target.checked})">
                     <label for="robot-noimageindex" class="tgl-btn mb-0 mr-2"></label>
                     <div>No image index</div>
                     <input type="hidden" name="seo[meta][robots][noimageindex]" :value="robots.noimageindex">
                 </div>
                 <div class="mb-2 d-flex align-items-center">
                     <input id="robot-noarchive" type="checkbox" class="robot-noarchive tgl tgl-flat"
-                           value="true" :checked="robots.noarchive" @change="updateRobot({key: 'noarchive', value: $event.target.checked})">
+                           value="true" :checked="robots.noarchive" @change="setRobots({key: 'noarchive', value: $event.target.checked})">
                     <label for="robot-noarchive" class="tgl-btn mb-0 mr-2"></label>
                     <div>No archive</div>
                     <input type="hidden" name="seo[meta][robots][noarchive]" :value="robots.noarchive">
                 </div>
                 <div class="mb-2 d-flex align-items-center">
                     <input id="robot-nosnippet" type="checkbox" class="robot-nosnippet tgl tgl-flat"
-                           value="true" :checked="robots.nosnippet" @change="updateRobot({key: 'nosnippet', value: $event.target.checked})">
+                           value="true" :checked="robots.nosnippet" @change="setRobots({key: 'nosnippet', value: $event.target.checked})">
                     <label for="robot-nosnippet" class="tgl-btn mb-0 mr-2"></label>
                     <div>No snippet</div>
                     <input type="hidden" name="seo[meta][robots][nosnippet]" :value="robots.nosnippet">
@@ -56,25 +55,39 @@
 
         <div class="form-group">
             <label>Canonical</label>
-            <input type="text" name="seo[meta][canonical]" class="form-control" :value="canonical" @input="setCanonical($event.target.value)">
+            <input type="text" name="seo[meta][canonical]" class="form-control" v-model="canonical">
         </div>
     </div>
 </template>
 
 <script>
-    import _ from 'lodash'
-    import {mapGetters, mapMutations} from 'vuex'
+    import store from '../../store'
 
     export default {
-        computed: {
-            ...mapGetters({
-                robots: 'robots',
-                canonical: 'canonical'
-            })
+        data() {
+            return {
+                sharedState: store.state
+            }
         },
 
+        computed: {
+            robots() {
+                return this.sharedState.meta.robots
+            },
+            canonical: {
+                get() {
+                    return this.sharedState.meta.canonical
+                },
+                set(value) {
+                    console.log(value)
+                    this.sharedState.meta.canonical = value
+                }
+            }
+        },
         methods: {
-            ...mapMutations(['updateRobot', 'setCanonical'])
+            setRobots({key, value}) {
+                // this.$set(this.sharedState.meta.robots, key, value)
+            }
         }
     }
 </script>

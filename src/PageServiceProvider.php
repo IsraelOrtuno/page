@@ -2,13 +2,11 @@
 
 namespace Devio\Page;
 
-use Devio\Page\Composers\TagComposer;
+//use Devio\Page\Composers\TagComposer;
 use Devio\Page\Composers\FormComposer;
+use Illuminate\Support\ServiceProvider;
 use Devio\Page\Contracts\ActionResolver;
 use Devio\Page\Generators\MetaGenerator;
-use Illuminate\Routing\Router;
-use Illuminate\Support\ServiceProvider;
-use Devio\Page\Composers\VariablesComposer;
 use Devio\Page\Transformers\MetaTransformer;
 
 class PageServiceProvider extends ServiceProvider
@@ -20,7 +18,6 @@ class PageServiceProvider extends ServiceProvider
     {
         $this->defineResources();
         $this->defineRoutes();
-
         $this->defineComposers();
     }
 
@@ -30,33 +27,20 @@ class PageServiceProvider extends ServiceProvider
             return;
         }
 
-        $router = $this->app['router'];
-
-        Page::all()->each(function ($page) use ($router) {
-            $action = $page->browseable ? $page->browseable->getAction()
-                : $this->app->make(ActionResolver::class)->resolve($page);
-
-            $route = $router->get($page->slug, $action)->name($page->route)->middleware('web');
-
-            if ($page->browseable) {
-                $route->defaults($page->browseable->getParameterName(), $page->browseable);
-            }
-        });
+        $this->app->make(RouteLoader::class)->load(Page::all());
     }
 
-    public
-    function defineComposers(): void
+    public function defineComposers(): void
     {
 //        \View::composer('*', TagComposer::class);
-//        \View::composer('seo::form', FormComposer::class);
+        \View::composer('page::form', FormComposer::class);
 //        \View::composer('welcome', VariablesComposer::class);
     }
 
     /**
      * Define the resources for the package.
      */
-    protected
-    function defineResources(): void
+    protected function defineResources(): void
     {
         $path = realpath(__DIR__ . '/../');
 
@@ -64,11 +48,16 @@ class PageServiceProvider extends ServiceProvider
 
         $this->mergeConfigFrom("{$path}/config/page.php", 'page');
 
-        $this->loadMigrationsFrom("{$path}/migrations/");
+        if (env('APP_ENV') !== 'testing') {
+            $this->loadMigrationsFrom("{$path}/migrations/");
+        }
+
+        $this->publishes([
+            __DIR__ . '/../migrations' => database_path('migrations'),
+        ], 'page');
     }
 
-    public
-    function register()
+    public function register()
     {
         // Always set the container for the Manager and Store classes
         $this->app->resolving(Store::class, function ($store, $app) {
@@ -90,8 +79,7 @@ class PageServiceProvider extends ServiceProvider
 //        $this->app->bind('page.generator.twitter', MetaTransformer::class);
     }
 
-    protected
-    function registerSingletonServices(): void
+    protected function registerSingletonServices(): void
     {
         $services = [
             ActionResolver::class => \Devio\Page\ActionResolver::class
@@ -100,5 +88,9 @@ class PageServiceProvider extends ServiceProvider
         foreach ($services as $key => $value) {
             $this->app->singleton($key, $value);
         }
+
+        $this->app->singleton(RouteLoader::class, function ($app) {
+            return new RouteLoader($app['router'], $app[ActionResolver::class]);
+        });
     }
 }

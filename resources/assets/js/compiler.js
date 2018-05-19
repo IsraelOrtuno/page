@@ -1,6 +1,6 @@
 class Compiler {
     constructor(sources) {
-        this.setSources(sources)
+        this.setSources({})
         this.wrap = true
     }
 
@@ -9,6 +9,8 @@ class Compiler {
     }
 
     compile(subject, wrap = false) {
+        // return ''
+        console.log(subject)
         // let matches = subject.match(/\{\{(.*?)\}\}/gi)
 
         let regex = /\{\{(.*?)\}\}/gi;

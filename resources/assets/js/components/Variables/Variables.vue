@@ -8,17 +8,7 @@
     import Variable from './Variable'
 
     export default {
-        components: { Variable },
-
-        data() {
-            return {
-                variables : __seo.data
-            }
-        },
-        computed: {
-            allVariables() {
-                return Object.keys(this.variables)
-            }
-        }
+        props: ['variables'],
+        components: { Variable }
     }
 </script>

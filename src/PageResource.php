@@ -9,6 +9,7 @@ class PageResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'slug' => $this->slug ?? '',
             'meta' => [
                 'title'       => $this->meta->title ?? '',
                 'description' => $this->meta->description ?? '',

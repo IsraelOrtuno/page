@@ -1,24 +1,39 @@
 <template>
     <div class="seo-preview">
-        <div class="seo-preview__title" v-html="compiledContent.title"></div>
-        <div class="seo-preview__link" v-text="url"></div>
-        <div class="seo-preview__description" v-html="compiledContent.description"></div>
+        <div class="seo-preview__title" v-html="title"></div>
+        <div class="seo-preview__link" v-html="url"></div>
+        <div class="seo-preview__description" v-html="description"></div>
     </div>
 </template>
 
 <script>
-    import {mapGetters} from 'vuex'
+    import store from '../../store'
 
     export default {
         data() {
             return {
-                url: window.location.href
+                privateState: {
+                    url: window.location.href
+                },
+                sharedState: store.state
             }
         },
 
         computed: {
-            ...mapGetters(['compiledContent'])
-        },
+            url() {
+                if (this.sharedState.slug.length) {
+                    return window.location.protocol + '//' + this.sharedState.slug
+                }
+
+                return '<span class="text-italic">URL will be generated on save</span>'
+            },
+            title() {
+                return compiler.compile(this.sharedState.meta.title)
+            },
+            description() {
+                return compiler.compile(this.sharedState.meta.description)
+            }
+        }
     }
 </script>
 
