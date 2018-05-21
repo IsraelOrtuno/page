@@ -29,7 +29,7 @@ class CreatePagesTable extends Migration
 
             $table->unsignedInteger('parent_id')->nullable();
 
-            $table->unique(['slug', 'parent_id']);
+            $table->unique('slug');
             $table->index('slug');
 
             $table->index(["browseable_type", "browseable_id"], 'browseable');

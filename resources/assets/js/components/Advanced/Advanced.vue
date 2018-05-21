@@ -9,7 +9,7 @@
                            value="true" :checked="robots.noindex" @change="setRobots({key: 'noindex', value: $event.target.checked})">
                     <label for="robot-noindex" class="tgl-btn mb-0 mr-2"></label>
                     <div>No index</div>
-                    <input type="hidden" name="seo[meta][robots][noindex]" :value="robots.noindex">
+                    <input type="hidden" name="page[meta][robots][noindex]" :value="robots.noindex">
                 </div>
             </div>
 
@@ -21,7 +21,7 @@
                            value="true" :checked="robots.nofollow" @change="setRobots({key: 'nofollow', value: $event.target.checked})">
                     <label for="robot-nofollow" class="tgl-btn mb-0 mr-2"></label>
                     <div>No follow</div>
-                    <input type="hidden" name="seo[meta][robots][nofollow]" :value="robots.nofollow">
+                    <input type="hidden" name="page[meta][robots][nofollow]" :value="robots.nofollow">
                 </div>
             </div>
 
@@ -34,28 +34,28 @@
                            @change="setRobots({key: 'noimageindex', value: $event.target.checked})">
                     <label for="robot-noimageindex" class="tgl-btn mb-0 mr-2"></label>
                     <div>No image index</div>
-                    <input type="hidden" name="seo[meta][robots][noimageindex]" :value="robots.noimageindex">
+                    <input type="hidden" name="page[meta][robots][noimageindex]" :value="robots.noimageindex">
                 </div>
                 <div class="mb-2 d-flex align-items-center">
                     <input id="robot-noarchive" type="checkbox" class="robot-noarchive tgl tgl-flat"
                            value="true" :checked="robots.noarchive" @change="setRobots({key: 'noarchive', value: $event.target.checked})">
                     <label for="robot-noarchive" class="tgl-btn mb-0 mr-2"></label>
                     <div>No archive</div>
-                    <input type="hidden" name="seo[meta][robots][noarchive]" :value="robots.noarchive">
+                    <input type="hidden" name="page[meta][robots][noarchive]" :value="robots.noarchive">
                 </div>
                 <div class="mb-2 d-flex align-items-center">
                     <input id="robot-nosnippet" type="checkbox" class="robot-nosnippet tgl tgl-flat"
                            value="true" :checked="robots.nosnippet" @change="setRobots({key: 'nosnippet', value: $event.target.checked})">
                     <label for="robot-nosnippet" class="tgl-btn mb-0 mr-2"></label>
                     <div>No snippet</div>
-                    <input type="hidden" name="seo[meta][robots][nosnippet]" :value="robots.nosnippet">
+                    <input type="hidden" name="page[meta][robots][nosnippet]" :value="robots.nosnippet">
                 </div>
             </div>
         </div>
 
         <div class="form-group">
             <label>Canonical</label>
-            <input type="text" name="seo[meta][canonical]" class="form-control" v-model="canonical">
+            <input type="text" name="page[meta][canonical]" class="form-control" v-model="canonical">
         </div>
     </div>
 </template>

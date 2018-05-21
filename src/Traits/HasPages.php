@@ -8,12 +8,28 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 trait HasPages
 {
+//    public static function bootHasPages()
+//    {
+//        static::saving(function ($model) {
+//            dd($model->browseable);
+//            if (! $model->slug) {
+//                $model->slug = $model->slug ?? $model->slugFallback();
+//            }
+//        });
+//    }
+
     /**
      * Get the slug from parent.
      *
      * @return string
+     * @throws \ReflectionException
      */
-//    public abstract function getSlug(): string;
+    public function slugFallback($value)
+    {
+        $class = (new \ReflectionClass($this))->getShortName();
+
+        return strtolower($class) . '/' . str_slug($this->name);
+    }
 
     /**
      * Get the controller action.
@@ -26,6 +42,7 @@ trait HasPages
      * Get the page parameter name.
      *
      * @return string
+     * @throws \ReflectionException
      */
     public function getParameterName(): string
     {

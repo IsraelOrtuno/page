@@ -69,7 +69,7 @@ class PageServiceProvider extends ServiceProvider
 
         $this->registerSingletonServices();
 
-        $this->app->bind('seo.transformers.meta', MetaTransformer::class);
+        $this->app->bind('page.transformers.meta', MetaTransformer::class);
 //        $this->app->bind('seo.transformers.opengraph', MetaTransformer::class);
 //        $this->app->bind('seo.transformers.twitter', MetaTransformer::class);
 

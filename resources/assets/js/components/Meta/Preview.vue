@@ -21,11 +21,13 @@
 
         computed: {
             url() {
+                let prefix = window.location.protocol + '//' + window.location.host + '/'
+
                 if (this.sharedState.slug.length) {
-                    return window.location.protocol + '//' + this.sharedState.slug
+                    prefix = prefix.concat(this.sharedState.slug)
                 }
 
-                return '<span class="text-italic">URL will be generated on save</span>'
+                return prefix
             },
             title() {
                 return compiler.compile(this.sharedState.meta.title)

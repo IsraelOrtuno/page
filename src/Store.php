@@ -51,7 +51,7 @@ class Store
     public function handle($attributes = null)
     {
         $attributes = $this->gatherAttributes($attributes)->map(function ($values, $entity) {
-            return $this->getContainer()->has($alias = "seo.transformers.{$entity}") ?
+            return $this->getContainer()->has($alias = "page.transformers.{$entity}") ?
                 $this->getContainer()->make($alias)->transform($values) : $values;
         })->toArray();
 
@@ -71,16 +71,16 @@ class Store
     protected function gatherAttributes($attributes = null)
     {
         if (is_null($attributes)) {
-            $attributes = request()->get('seo');
+            $attributes = request()->get('page');
         }
 
         if ($attributes instanceof Request) {
-            $attributes = $attributes->get('seo');
+            $attributes = $attributes->get('page');
         } elseif (! is_array($attributes)) {
             $attributes = (array) $attributes;
         }
 
-        return collect($attributes['seo'] ?? $attributes);
+        return collect($attributes['page'] ?? $attributes);
     }
 
     /**

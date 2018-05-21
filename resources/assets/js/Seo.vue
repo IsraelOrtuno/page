@@ -19,9 +19,9 @@
                     </div>
                 </div>
             </div>
-            <div class="card-footer bg-dadrk textd-white">
-                <variables :variables="data"></variables>
-            </div>
+            <!--<div class="card-footer bg-dadrk textd-white">-->
+                <!--<variables :variables="data"></variables>-->
+            <!--</div>-->
         </div>
     </div>
 </template>

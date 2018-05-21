@@ -12,6 +12,7 @@ class FormComposer
     {
         $route = request()->route();
 
+
         $entity = $this->getPrimaryEntity($view);
 
         $view->with([
@@ -33,7 +34,8 @@ class FormComposer
     public function getPrimaryEntity($view)
     {
         foreach ($view->getData() as $variable) {
-            if (is_object($variable) && class_uses_recursive(HasPages::class)) {
+            // You should pass the variable to the class_uses_recursive instance!
+            if (is_object($variable) && in_array(HasPages::class, class_uses_recursive($variable))) {
                 return $variable;
             }
         }
