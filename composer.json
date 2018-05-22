@@ -28,12 +28,5 @@
         "psr-4": {
             "Devio\\Page\\Tests\\": "tests/"
         }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Devio\\Page\\PageServiceProvider"
-            ]
-        }
     }
 }
