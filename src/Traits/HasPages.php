@@ -8,15 +8,14 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 trait HasPages
 {
-//    public static function bootHasPages()
-//    {
-//        static::saving(function ($model) {
-//            dd($model->browseable);
-//            if (! $model->slug) {
-//                $model->slug = $model->slug ?? $model->slugFallback();
-//            }
-//        });
-//    }
+    public static function bootHasPages()
+    {
+        static::saved(function ($model) {
+            if (!property_exists($model, 'updatePageOnSave') || $model->updatePageOnSave !== false) {
+                $model->updatePage();
+            }
+        });
+    }
 
     /**
      * Get the slug from parent.

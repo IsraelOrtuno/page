@@ -10,7 +10,7 @@ class PageResource extends JsonResource
     {
         return [
             'slug' => $this->slug ?? '',
-            'meta' => [
+            'meta'     => [
                 'title'       => $this->meta->title ?? '',
                 'description' => $this->meta->description ?? '',
                 'canonical'   => $this->meta->canonical ?? '',

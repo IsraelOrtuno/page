@@ -43,17 +43,15 @@ class Page extends Model
         // If the user has updated the slug manually, we will make sure that the
         // new slug is unique in the pages table. If we do not check this, it
         // will collision with other slugs and produce unwanted behaviour.
-        static::updating(function ($model) {
-            if ($model->original['slug'] !== $model->slug) {
-                $model->slug = SlugService::createSlug(static::class, 'slug', $model->slug, ['unique' => true]);
-            }
-        });
-
-        // For the same reason, if the user has specified a slug when creting
+        //
+        // For the same reason, if the user has specified a slug when creating
         // the resource, we will make sure that this slug is unique by just
         // re-creating the slug again, do not worry about performance.
-        static::creating(function($model) {
-            $model->slug = SlugService::createSlug(static::class, 'slug', $model->slug, ['unique' => true]);
+        static::saving(function ($model) {
+            if (! $model->exists ||
+                (isset($model->original['slug']) && $model->original['slug'] !== $model->slug)) {
+                $model->slug = SlugService::createSlug(static::class, 'slug', $model->slug, ['unique' => true]);
+            }
         });
     }
 
@@ -119,7 +117,7 @@ class Page extends Model
         return [
             'slug' => [
                 'method' => function ($value) {
-                    return $this->browseable->slugFallback($value);
+                    return $this->browseable ? $this->browseable->slugFallback($value) : '';
                 }
             ]
         ];

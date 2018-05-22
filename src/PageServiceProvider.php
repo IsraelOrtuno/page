@@ -23,11 +23,17 @@ class PageServiceProvider extends ServiceProvider
 
     protected function defineRoutes()
     {
-        if ($this->app->routesAreCached() || ! \Schema::hasTable('pages')) {
-            return;
-        }
+        // This try/catch block is used to make sure that the database connection
+        // really exists, otherwise there will be problems as soon as the file
+        // is loaded into the Laravel bootstrap stack.
+        try {
+            if ($this->app->routesAreCached() || ! \Schema::hasTable('pages')) {
+                return;
+            }
 
-        $this->app->make(RouteLoader::class)->load(Page::all());
+            $this->app->make(RouteLoader::class)->load(Page::all());
+        } catch (\Exception $e) {
+        }
     }
 
     public function defineComposers(): void

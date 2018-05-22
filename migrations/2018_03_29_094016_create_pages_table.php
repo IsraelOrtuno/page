@@ -39,23 +39,23 @@ class CreatePagesTable extends Migration
 
         $routes = [
             [
-                'route' => 'home',
-                'slug'  => '',
-                'meta'  => ['title' => 'Jobbb, the Smarter Job Board']
+                'route'    => 'home',
+                'slug' => '',
+                'meta'     => ['title' => 'Jobbb, the Smarter Job Board']
             ],
             [
-                'route' => 'pricing',
-                'slug'  => 'pricing',
-                'meta'  => ['title' => 'Pricing plans']
+                'route'    => 'pricing',
+                'slug' => 'pricing',
+                'meta'     => ['title' => 'Pricing plans']
             ],
             [
-                'route' => 'openings',
-                'slug'  => 'jobs',
-                'meta'  => ['title' => 'Browse jobs']
+                'route'    => 'openings',
+                'slug' => 'jobs',
+                'meta'     => ['title' => 'Browse jobs']
             ],
             [
                 'route'           => 'openings.show',
-                'slug'            => 'jobs/full-stack',
+                'slug'        => 'jobs/full-stack',
                 'browseable_type' => 'opening',
                 'browseable_id'   => 1
             ]
