@@ -10,12 +10,14 @@ class ActionResolver implements ActionResolverInterface
      * Resolve a page action path.
      *
      * @param Page $page
-     * @return string
      */
-    public function resolve(Page $page): string
+    public function resolve(Page $page)
     {
-        $controller = str_replace('.', '\\', ucfirst($page->route)) . 'Controller';
+        $controller = config('page.namespace') . '\\' . str_replace('.', '\\', ucfirst($page->route)) . 'Controller';
 
-        return config('page.namespace') . "\\$controller@index";
+        return class_exists($controller)
+            ? "$controller@index" : function() {
+                return 'View controller not found';
+            };
     }
 }
